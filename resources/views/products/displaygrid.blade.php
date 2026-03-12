@@ -4,8 +4,16 @@
 <div style="padding-top:1%">
     <nav class="navbar navbar-right navbar-expand-sm navbar-dark bg-dark">
         <ul class="navbar-nav ms-auto">
-
-            <li class="nav-item">
+            <li class="nav-item" style="margin-right:5px;">
+                <select id="colourselect" class="form-select" size="1">
+                    <option value="All">All</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Red">Red</option>
+                    <option value="Green">Green</option>
+                    <option value="Yello">Yellow</option>
+                    <option value="Orange">Orange</option>
+                </select>
+            
                 <button id="checkOut"
                         onclick="window.location.href='{{route('scorders.checkout')}}'"
                         type="button"
@@ -53,7 +61,7 @@
 
 <div class="d-flex flex-wrap align-content-start bg-light">
     @foreach($products as $product)
-        <div class="p-2 border col-4 g-3">
+        <div class="p-2 border col-4 g-3 allcolours {{ $product->colour }}">
             <div class="card text-center">
 
                 <div class="card-header d-block">
@@ -62,11 +70,36 @@
                     </h5>
                 </div>
 
+                <li class="nav-item" style="margin-right:5px;">
+                    <select id="colourselect" class="form-select"
+                    size="1">
+                        <option value="All">All</option>
+                        <option value="Blue">Blue</option>
+                        <option value="Red">Red</option>
+                        <option value="Green">Green</option>
+                        <option value="Yellow">Yellow</option>
+                        <option value="Orange">Orange</option>
+                    </select>
+                </li>
+
 
 
 
 
 <script>
+    
+$("#colourselect").on('change', function() {
+    var colour = $(this).find(":selected").val();
+    if (colour=='All') {
+        $('.allcolours').show();
+    }
+    else {
+        $('.allcolours').hide();
+        $('.'+colour).show();
+    }
+});
+
+
 $(".bth,.addItem").click(function() {
     var total = parseInt($('#shoppingcart').text());
     var i=$(this).val();
@@ -96,6 +129,8 @@ $("#emptycart").click(function() { $.ajax({
     }
 });
 });
+
+
 </script>
 
 @endsection
