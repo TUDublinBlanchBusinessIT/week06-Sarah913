@@ -16,4 +16,8 @@ Route::get('product/displaygrid','App\Http\Controllers\ProductController@display
 
 Route::get('product/additem/{id}','App\Http\Controllers\productController@additem')->name('products.additem');
 
-oute::get('product/emptycart','App\Http\Controllers\productController@emptycart')->name('product.emptycart');
+Route::get('product/emptycart','App\Http\Controllers\productController@emptycart')->name('product.emptycart');
+
+Route::get('scorder/checkout','App\Http\Controllers\scorderController@checkout')->name('scorder.checkout');
+
+Route::post('scorder/placeorder','App\Http\Controllers\scorderController@placeorder')->name('scorder.placeorder');

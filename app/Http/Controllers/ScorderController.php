@@ -8,7 +8,8 @@ use App\Repositories\ScorderRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
-use Response;
+use Response;#
+use Session;
 
 class ScorderController extends AppBaseController
 {
@@ -34,6 +35,26 @@ class ScorderController extends AppBaseController
         return view('scorders.index')
             ->with('scorders', $scorders);
     }
+
+    public function checkout()
+    {
+        if (Session::has('cart')) {
+            $cart = Session::get('cart');
+            $lineitems = array();
+            foreach ($cart as $productid => $qty) {
+                $lineitem['product'] =
+\App\Models\Product::find($productid);
+            $lineitem['qty'] = $qty;
+            $lineitems[] = $lineitem;
+            }
+            return view('scorders.checkout')->with('lineitems',
+            $lineitems);
+            }
+            else {
+                Flash::error("There are no items in your cart");
+                return redirect(route('product.displaygrid'));
+                }
+                }
 
     /**
      * Show the form for creating a new Scorder.
